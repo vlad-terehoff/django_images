@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ image.name }}</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        img {
+            max-width: 500px;
+            max-height: 300px;
+            object-fit: fill;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .update-button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #cecc32;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .update-button:hover {
+            background-color: #c7c322;
+        }
+
+        .remove-button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #f55c94;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .remove-button:hover {
+            background-color: #b23753;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>{{ image.name }}</h1>
+    <img src="{{ image.image.url }}" alt="{{ image.name }}">
+    <p>Описание: {{ image.description }}</p>
+    <p>Дата съемки: {{ image.shooting_date }}</p>
+    <p>Теги:
+        {% for tag in image.tags.all %}
+            {{ tag.name }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+    </p>
+    <div class="update-image">
+        <a href="{% url 'image_update' image.pk %}" class="update-button">Обновить атрибуты изображения</a>
+    </div>
+    <div class="remove-image">
+        <a href="{% url 'image_delete' image.pk %}" class="remove-button">Удалить изображение</a>
+    </div>
+    <div class="back-all-images">
+        <a href="{% url 'list_images' %}" class="button">Вернуться к другим изображениям</a>
+    </div>
+
+</body>
+</html>

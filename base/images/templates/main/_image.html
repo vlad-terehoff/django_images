@@ -1,0 +1,59 @@
+<div class="image-item">
+    <h2>{{ image.name }}</h2>
+    <img src="{{ image.image.url }}" alt="{{ image.name }}" class="image">
+    <p>Дата съемки: {{ image.shooting_date }}</p>
+    <p>Теги:
+        {% for tag in image.tags.all %}
+            {{ tag.name }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+    </p>
+    <div class="detail-image">
+        <a href="{% url 'image_detail' image.pk %}" class="button">Посмотреть карточку картинки детально</a>
+    </div>
+</div>
+
+<style>
+    .image-item {
+        border: 1px solid #4CAF50;
+        border-radius: 10px;
+        padding: 15px;
+        margin: 15px;
+        width: 300px;
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background-color: white;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .image-item h2 {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .image {
+        max-width: 100%;
+        max-height: 200px;
+        object-fit: fill;
+        border-radius: 5px;
+    }
+
+    .detail-image {
+        margin-top: auto;
+    }
+
+    .button {
+        display: inline-block;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    .button:hover {
+        background-color: #45a049;
+    }
+</style>

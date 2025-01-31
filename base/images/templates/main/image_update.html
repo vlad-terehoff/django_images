@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Обновить {{ image.name }}</title>
+        <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #dedada;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .back-all-images {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        .remove-home {
+            position: absolute;
+            top: 70px;
+            left: 20px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        form {
+            width: 400px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: calc(100% - 20px);
+            padding: 8px 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="back-all-images">
+        <a href="{% url 'list_images' %}" class="button">Вернуться к другим изображениям</a>
+    </div>
+
+    <div class="remove-home">
+        <a href="{% url 'image_detail' form.instance.pk %}" class="button">Вернуться к изображению без изменения</a>
+    </div>
+
+    <h1>Изменить  изображение</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="{{ form.name.id_for_label }}">Название изображения</label>
+            {{ form.name }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.description.id_for_label }}">Описание изображения</label>
+            {{ form.description }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.shooting_date.id_for_label }}">Дата съёмки</label>
+            {{ form.shooting_date }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.tags.id_for_label }}">Выберите тег для изображения</label>
+            {{ form.tags }}
+        </div>
+
+        <button type="submit">Обновить изображение</button>
+    </form>
+
+</body>
+</html>

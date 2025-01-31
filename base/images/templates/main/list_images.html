@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Все изображения</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+        }
+
+        .remove-home {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        h1 {
+            margin-top: 60px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            width: 600px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        form h4 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form input,
+        form select {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button[type="submit"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .image-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .image-list p {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="remove-home">
+        <a href="{% url 'home' %}" class="button">Вернуться на главную страницу</a>
+    </div>
+
+    <h1>Все изображения</h1>
+
+    <form method="get">
+        <h4>Выберите фильтр.</h4>
+        <input type="text" name="name" placeholder="Название изображения" value="{{ request.GET.name }}">
+        <input type="date" name="shooting_date" placeholder="Дата съёмки" value="{{ request.GET.shooting_date }}">
+
+        <select name="tags" multiple>
+            {% for tag in tags %}
+                <option value="{{ tag.id }}" {% if tag.id in request.GET.tags %}selected{% endif %}>{{ tag.name }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Фильтровать</button>
+    </form>
+
+    <div class="image-list">
+        {% for image in images %}
+            {% include "main/_image.html"%}
+        {% empty %}
+            <p>Изображения не найдены.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>

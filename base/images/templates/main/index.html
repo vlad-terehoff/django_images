@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добро пожаловать</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Центрирование заголовка */
+        h1 {
+            text-align: center;
+            margin-bottom: 40px; /* Отступ под заголовком */
+        }
+
+        /* Контейнер для блоков */
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 80%;
+        }
+
+        #add-image, #all-images {
+            padding: 20px;
+            width: 200px;
+            text-align: center;
+            margin: 30px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Добро пожаловать</h1>
+    <div class="content">
+        <div id="add-image">
+            <a href="{% url 'create_image' %}" class="button">Добавить изображение</a>
+        </div>
+        <div id="all-images">
+            <a href="{% url 'list_images' %}" class="button">Просмотреть все изображения</a>
+        </div>
+    </div>
+
+</body>
+</html>
